@@ -248,27 +248,6 @@
             border-radius: 50%;
         }
 
-        .message-section {
-            margin: 30px 0;
-        }
-
-        .message-input {
-            width: 100%;
-            min-height: 120px;
-            padding: 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
-            font-size: 1.1em;
-            font-family: inherit;
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .message-input:focus {
-            border-color: #667eea;
-        }
-
         .default-message {
             color: #667eea;
             font-size: 1.2em;
@@ -320,25 +299,6 @@
                 transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .name-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .name-input:focus {
-            border-color: #667eea;
         }
     </style>
 </head>
@@ -402,16 +362,10 @@
             <input type="file" id="photoInput6" accept="image/*" style="display: none;">
         </div>
 
-        <input type="text" class="name-input" id="nameInput" placeholder="Masukkan nama yang berulang tahun...">
-
-        <div class="message-section">
-            <textarea class="message-input" id="messageInput" placeholder="Tulis ucapan spesial di sini..."></textarea>
-            
-            <div class="default-message" id="defaultMessage">
-                🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>
-                🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>
-                🥳 Selamat merayakan hari yang penuh berkah ini!
-            </div>
+        <div class="default-message">
+            🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>
+            🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>
+            🥳 Selamat merayakan hari yang penuh berkah ini!
         </div>
 
         <button class="celebrate-btn" onclick="celebrate()">🎉 Rayakan!</button>
@@ -433,26 +387,6 @@
                 }
             });
         }
-
-        // Update message display
-        document.getElementById('messageInput').addEventListener('input', function() {
-            const defaultMsg = document.getElementById('defaultMessage');
-            if (this.value.trim()) {
-                defaultMsg.style.display = 'none';
-            } else {
-                defaultMsg.style.display = 'block';
-            }
-        });
-
-        // Update title with name
-        document.getElementById('nameInput').addEventListener('input', function() {
-            const title = document.querySelector('.title');
-            if (this.value.trim()) {
-                title.textContent = `🎂 Selamat Ulang Tahun, ${this.value}!`;
-            } else {
-                title.textContent = '🎂 Selamat Ulang Tahun!';
-            }
-        });
 
         function createConfetti() {
             const confettiContainer = document.getElementById('confetti');
@@ -482,31 +416,15 @@
             // Animate cake
             const cake = document.querySelector('.cake');
             cake.style.animation = 'gentle-bounce 0.5s ease-in-out 3';
-            
-            // Show custom message
-            const messageInput = document.getElementById('messageInput');
-            const defaultMessage = document.getElementById('defaultMessage');
-            
-            if (messageInput.value.trim()) {
-                defaultMessage.innerHTML = messageInput.value.replace(/\n/g, '<br>');
-                defaultMessage.style.display = 'block';
-            }
         }
 
         function resetCard() {
-            document.getElementById('nameInput').value = '';
-            document.getElementById('messageInput').value = '';
-            document.querySelector('.title').textContent = '🎂 Selamat Ulang Tahun!';
-            
             // Reset all photo placeholders
             const placeholders = document.querySelectorAll('.photo-placeholder');
             placeholders[0].innerHTML = '<div class="photo-text">📷<br>Foto Utama</div>';
             for (let i = 1; i < placeholders.length; i++) {
                 placeholders[i].innerHTML = `<div class="photo-text">📷<br>Foto ${i}</div>`;
             }
-            
-            document.getElementById('defaultMessage').innerHTML = '🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>🥳 Selamat merayakan hari yang penuh berkah ini!';
-            document.getElementById('defaultMessage').style.display = 'block';
         }
 
         // Scroll balloons effect
