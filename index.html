@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes Kecocokan Cinta 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e, #ffa8a8);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4757;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ff8e8e;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff4757;
+            transform: scale(1.02);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4757, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+        }
+
+        .loading {
+            display: none;
+            margin: 30px 0;
+        }
+
+        .heart-loader {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .heart-loader div {
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #ff4757;
+            animation: heart-beat 1.2s linear infinite;
+        }
+
+        .heart-loader div:nth-child(1) { top: 32px; left: 32px; animation-delay: 0s; }
+        .heart-loader div:nth-child(2) { top: 32px; left: 32px; animation-delay: -0.4s; }
+        .heart-loader div:nth-child(3) { top: 32px; left: 32px; animation-delay: -0.8s; }
+
+        @keyframes heart-beat {
+            0% {
+                top: 32px;
+                left: 32px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                top: 0px;
+                left: 0px;
+                width: 64px;
+                height: 64px;
+                opacity: 0;
+            }
+        }
+
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .result.high {
+            background: linear-gradient(135deg, #2ed573, #7bed9f);
+            color: white;
+        }
+
+        .result.medium {
+            background: linear-gradient(135deg, #ffa502, #ff6348);
+            color: white;
+        }
+
+        .result.low {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: white;
+        }
+
+        .percentage {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .message {
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ff4757;
+            font-size: 20px;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .reset-btn {
+            background: #747d8c;
+            margin-top: 15px;
+        }
+
+        .reset-btn:hover {
+            background: #57606f;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1>💕 Tes Kecocokan Cinta 💕</h1>
+        
+        <div class="input-group">
+            <label for="name1">Nama Pertama:</label>
+            <input type="text" id="name1" placeholder="Masukkan nama pertama">
+        </div>
+        
+        <div class="input-group">
+            <label for="name2">Nama Kedua:</label>
+            <input type="text" id="name2" placeholder="Masukkan nama kedua">
+        </div>
+        
+        <button class="btn" onclick="calculateCompatibility()">Hitung Kecocokan 💖</button>
+        
+        <div class="loading" id="loading">
+            <div class="heart-loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p>Menganalisis kecocokan cinta...</p>
+        </div>
+        
+        <div class="result" id="result">
+            <div class="percentage" id="percentage"></div>
+            <div class="message" id="message"></div>
+            <button class="btn reset-btn" onclick="resetTest()">Tes Lagi</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateCompatibility() {
+            const name1 = document.getElementById('name1').value.trim();
+            const name2 = document.getElementById('name2').value.trim();
+            
+            if (!name1 || !name2) {
+                alert('Mohon masukkan kedua nama!');
+                return;
+            }
+            
+            // Sembunyikan tombol dan tampilkan loading
+            document.querySelector('.btn').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            
+            // Simulasi loading dengan animasi
+            setTimeout(() => {
+                const compatibility = getCompatibilityScore(name1, name2);
+                showResult(compatibility, name1, name2);
+                createFloatingHearts();
+            }, 2500);
+        }
+        
+        function getCompatibilityScore(name1, name2) {
+            // Algoritma sederhana berdasarkan nama
+            const combined = (name1 + name2).toLowerCase();
+            let score = 0;
+            
+            // Hitung berdasarkan karakter yang sama
+            const chars1 = name1.toLowerCase().split('');
+            const chars2 = name2.toLowerCase().split('');
+            
+            for (let char of chars1) {
+                if (chars2.includes(char)) {
+                    score += 10;
+                }
+            }
+            
+            // Tambah faktor panjang nama
+            score += Math.abs(name1.length - name2.length) * 2;
+            
+            // Tambah faktor random untuk variasi
+            score += Math.floor(Math.random() * 30);
+            
+            // Normalisasi ke 0-100
+            score = Math.min(100, Math.max(10, score));
+            
+            return score;
+        }
+        
+        function showResult(score, name1, name2) {
+            document.getElementById('loading').style.display = 'none';
+            
+            const resultDiv = document.getElementById('result');
+            const percentageDiv = document.getElementById('percentage');
+            const messageDiv = document.getElementById('message');
+            
+            percentageDiv.textContent = score + '%';
+            
+            let message, className;
+            
+            if (score >= 80) {
+                message = `🔥 ${name1} dan ${name2} sangat cocok! Kalian seperti dibuat satu sama lain! 💕`;
+                className = 'high';
+            } else if (score >= 60) {
+                message = `😊 ${name1} dan ${name2} cukup cocok! Ada potensi hubungan yang baik! 💖`;
+                className = 'medium';
+            } else if (score >= 40) {
+                message = `🤔 ${name1} dan ${name2} lumayan cocok. Perlu usaha lebih untuk memahami satu sama lain! 💛`;
+                className = 'medium';
+            } else {
+                message = `😅 ${name1} dan ${name2} kurang cocok, tapi cinta bisa mengalahkan segalanya! 💪`;
+                className = 'low';
+            }
+            
+            messageDiv.textContent = message;
+            resultDiv.className = `result ${className}`;
+            resultDiv.style.display = 'block';
+        }
+        
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartSymbols = ['💕', '💖', '💗', '💘', '💝', '💞', '💟'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 200);
+            }
+        }
+        
+        function resetTest() {
+            document.getElementById('name1').value = '';
+            document.getElementById('name2').value = '';
+            document.getElementById('result').style.display = 'none';
+            document.querySelector('.btn').style.display = 'inline-block';
+        }
+        
+        // Event listener untuk Enter key
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateCompatibility();
+            }
+        });
+    </script>
+</body>
+</html>
