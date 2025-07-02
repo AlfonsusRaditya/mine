@@ -30,23 +30,38 @@
 
         .scroll-balloon {
             position: absolute;
-            width: 30px;
-            height: 40px;
+            width: 40px;
+            height: 60px;
+            background: radial-gradient(ellipse at center top, var(--balloon-color) 0%, var(--balloon-color) 85%, transparent 100%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: scroll-float 4s ease-in-out infinite;
             opacity: 0;
             transition: opacity 0.5s ease;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .scroll-balloon::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            width: 12px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: rotate(-20deg);
         }
 
         .scroll-balloon::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 1px;
-            height: 40px;
-            background: #666;
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, #333, #666);
+            border-radius: 1px;
         }
 
         @keyframes scroll-float {
@@ -194,34 +209,31 @@
 
         .photo-section {
             margin: 40px 0;
+            position: relative;
         }
 
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+        .photo-layout {
+            position: relative;
+            width: 100%;
+            height: 300px;
         }
 
         .photo-placeholder {
-            width: 150px;
-            height: 150px;
+            position: absolute;
             border: 2px dashed #667eea;
             border-radius: 15px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
         }
 
         .photo-placeholder:hover {
             border-color: #764ba2;
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(2deg);
         }
 
         .photo-placeholder img {
@@ -233,19 +245,40 @@
 
         .photo-text {
             color: #667eea;
-            font-size: 0.9em;
+            font-size: 0.8em;
             text-align: center;
         }
 
-        .main-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 0 auto 30px;
+        .photo-1 {
+            width: 120px;
+            height: 120px;
+            top: 0;
+            left: 20px;
+            transform: rotate(-10deg);
         }
 
-        .main-photo img {
-            border-radius: 50%;
+        .photo-2 {
+            width: 140px;
+            height: 100px;
+            top: 20px;
+            right: 30px;
+            transform: rotate(8deg);
+        }
+
+        .photo-3 {
+            width: 110px;
+            height: 130px;
+            bottom: 40px;
+            left: 50px;
+            transform: rotate(5deg);
+        }
+
+        .photo-4 {
+            width: 130px;
+            height: 110px;
+            bottom: 0;
+            right: 20px;
+            transform: rotate(-7deg);
         }
 
         .default-message {
@@ -326,7 +359,130 @@
         </div>
 
         <div class="photo-section">
-            <div class="photo-placeholder main-photo" onclick="document.getElementById('photoInput0').click()">
+            <div class="photo-layout">
+                <div class="photo-placeholder photo-1" onclick="document.getElementById('photoInput1').click()">
+                    <div class="photo-text">📷<br>Foto 1</div>
+                </div>
+                <div class="photo-placeholder photo-2" onclick="document.getElementById('photoInput2').click()">
+                    <div class="photo-text">📷<br>Foto 2</div>
+                </div>
+                <div class="photo-placeholder photo-3" onclick="document.getElementById('photoInput3').click()">
+                    <div class="photo-text">📷<br>Foto 3</div>
+                </div>
+                <div class="photo-placeholder photo-4" onclick="document.getElementById('photoInput4').click()">
+                    <div class="photo-text">📷<br>Foto 4</div>
+                </div>
+            </div>
+            
+            <input type="file" id="photoInput1" accept="image/*" style="display: none;">
+            <input type="file" id="photoInput2" accept="image/*" style="display: none;">
+            <input type="file" id="photoInput3" accept="image/*" style="display: none;">
+            <input type="file" id="photoInput4" accept="image/*" style="display: none;">
+        </div>
+
+        <div class="default-message">
+            🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>
+            🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>
+            🥳 Selamat merayakan hari yang penuh berkah ini!
+        </div>
+
+        <button class="celebrate-btn" onclick="celebrate()">🎉 Rayakan!</button>
+        <button class="celebrate-btn" onclick="resetCard()">🔄 Reset</button>
+    </div>
+
+    <script>
+        // Handle multiple photo uploads
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`photoInput${i}`).addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const placeholder = document.querySelector(`[onclick="document.getElementById('photoInput${i}').click()"]`);
+                        placeholder.innerHTML = `<img src="${e.target.result}" alt="Birthday Photo ${i}">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#667eea', '#764ba2', '#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }, i * 50);
+            }
+        }
+
+        function celebrate() {
+            createConfetti();
+            
+            // Animate cake
+            const cake = document.querySelector('.cake');
+            cake.style.animation = 'gentle-bounce 0.5s ease-in-out 3';
+        }
+
+        function resetCard() {
+            // Reset all photo placeholders
+            for (let i = 1; i <= 4; i++) {
+                const placeholder = document.querySelector(`[onclick="document.getElementById('photoInput${i}').click()"]`);
+                placeholder.innerHTML = `<div class="photo-text">📷<br>Foto ${i}</div>`;
+            }
+        }
+
+        // Scroll balloons effect
+        function createScrollBalloons() {
+            const container = document.getElementById('scrollBalloons');
+            const colors = ['#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98FB98', '#F0E68C'];
+            
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'scroll-balloon';
+                balloon.style.setProperty('--balloon-color', colors[Math.floor(Math.random() * colors.length)]);
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.top = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 2 + 's';
+                balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                container.appendChild(balloon);
+            }
+        }
+
+        // Show balloons on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const balloons = document.querySelectorAll('.scroll-balloon');
+            
+            balloons.forEach((balloon, index) => {
+                if (scrollPercent > index * 0.07) {
+                    balloon.style.opacity = '0.8';
+                } else {
+                    balloon.style.opacity = '0';
+                }
+            });
+        });
+
+        // Auto confetti on load
+        window.addEventListener('load', () => {
+            setTimeout(createConfetti, 1000);
+            createScrollBalloons();
+        });
+    </script>
+</body>
+</html>('photoInput0').click()">
                 <div class="photo-text">
                     📷<br>Foto Utama
                 </div>
