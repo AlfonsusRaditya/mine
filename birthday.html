@@ -14,8 +14,7 @@
         body {
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 200vh;
-            padding: 20px;
+            overflow-x: hidden;
         }
 
         .scroll-balloons {
@@ -69,41 +68,31 @@
             50% { transform: translateY(-20px) rotate(2deg); }
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            padding: 40px;
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            max-width: 600px;
-            width: 100%;
             position: relative;
-            overflow: hidden;
-            margin: 50px auto;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shine 3s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .title {
-            font-size: 3em;
-            color: #667eea;
+        .hero-title {
+            font-size: 4em;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
             margin-bottom: 30px;
             animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .hero-message {
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 20px;
         }
 
         @keyframes gentle-bounce {
@@ -111,56 +100,67 @@
             50% { transform: translateY(-10px); }
         }
 
-        .cake-section {
-            margin: 40px 0;
+        .photo-section {
+            min-height: 100vh;
+            background: white;
+            padding: 80px 20px;
             position: relative;
         }
 
-        .cake {
-            width: 180px;
-            height: 120px;
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 50px;
+        }
+
+        .cake-decoration {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 80px;
             background: linear-gradient(45deg, #8B4513, #CD853F);
-            border-radius: 15px 15px 30px 30px;
-            margin: 0 auto;
-            position: relative;
+            border-radius: 10px 10px 20px 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .cake::before {
+        .cake-decoration::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: 15px;
-            right: 15px;
-            height: 30px;
+            top: -10px;
+            left: 10px;
+            right: 10px;
+            height: 20px;
             background: linear-gradient(45deg, #FFB6C1, #FF69B4);
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
-        .candles {
+        .candles-decoration {
             position: absolute;
-            top: -50px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .candle {
-            width: 6px;
-            height: 30px;
+        .candle-decoration {
+            width: 4px;
+            height: 20px;
             background: #FFD700;
-            border-radius: 3px;
+            border-radius: 2px;
             position: relative;
         }
 
-        .flame {
+        .flame-decoration {
             position: absolute;
-            top: -10px;
+            top: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 8px;
-            height: 10px;
+            width: 6px;
+            height: 8px;
             background: radial-gradient(circle, #FF4500, #FFD700);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: flicker 1s ease-in-out infinite alternate;
@@ -171,139 +171,74 @@
             100% { transform: translateX(-50%) scale(1.1); }
         }
 
-        .balloons {
-            position: absolute;
-            top: -20px;
-            width: 100%;
-            height: 100px;
-            pointer-events: none;
-        }
-
-        .balloon {
-            position: absolute;
-            width: 40px;
-            height: 50px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 60px;
-            background: #666;
-        }
-
-        .balloon:nth-child(1) { background: #FF6B9D; left: 10%; animation-delay: 0s; }
-        .balloon:nth-child(2) { background: #4ECDC4; right: 10%; animation-delay: 1s; }
-        .balloon:nth-child(3) { background: #45B7D1; left: 20%; animation-delay: 2s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .photo-section {
-            margin: 40px 0;
-            position: relative;
-        }
-
-        .photo-layout {
-            position: relative;
-            width: 100%;
-            height: 300px;
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 100px;
         }
 
         .photo-placeholder {
-            position: absolute;
-            border: 2px dashed #667eea;
-            border-radius: 15px;
+            width: 300px;
+            height: 300px;
+            border: 3px dashed #667eea;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
+            margin: 0 auto;
         }
 
         .photo-placeholder:hover {
             border-color: #764ba2;
-            transform: scale(1.05) rotate(2deg);
+            transform: scale(1.05);
         }
 
         .photo-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 13px;
+            border-radius: 17px;
         }
 
         .photo-text {
             color: #667eea;
-            font-size: 0.8em;
+            font-size: 1.2em;
             text-align: center;
         }
 
-        .photo-1 {
-            width: 120px;
-            height: 120px;
-            top: 0;
-            left: 20px;
-            transform: rotate(-10deg);
+        .party-decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        .photo-2 {
-            width: 140px;
-            height: 100px;
-            top: 20px;
-            right: 30px;
-            transform: rotate(8deg);
+        .party-hat {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid;
+            animation: spin 6s linear infinite;
         }
 
-        .photo-3 {
-            width: 110px;
-            height: 130px;
-            bottom: 40px;
-            left: 50px;
-            transform: rotate(5deg);
-        }
+        .party-hat:nth-child(1) { border-bottom-color: #FF1744; top: 10%; left: 5%; animation-delay: 0s; }
+        .party-hat:nth-child(2) { border-bottom-color: #00E676; top: 20%; right: 8%; animation-delay: 2s; }
+        .party-hat:nth-child(3) { border-bottom-color: #2196F3; bottom: 30%; left: 10%; animation-delay: 4s; }
+        .party-hat:nth-child(4) { border-bottom-color: #FF9800; bottom: 20%; right: 5%; animation-delay: 1s; }
 
-        .photo-4 {
-            width: 130px;
-            height: 110px;
-            bottom: 0;
-            right: 20px;
-            transform: rotate(-7deg);
-        }
-
-        .default-message {
-            color: #667eea;
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-
-        .celebrate-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 20px 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .celebrate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .confetti {
@@ -333,65 +268,90 @@
                 opacity: 0;
             }
         }
+
+        .celebrate-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 50px auto;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .celebrate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5em; }
+            .hero-message { font-size: 1.2em; }
+            .photo-grid { grid-template-columns: 1fr; gap: 30px; }
+            .photo-placeholder { width: 250px; height: 250px; }
+        }
     </style>
 </head>
 <body>
     <div class="confetti" id="confetti"></div>
     <div class="scroll-balloons" id="scrollBalloons"></div>
-    
-    <div class="container">
-        <div class="balloons">
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-        </div>
 
-        <h1 class="title">🎂 Selamat Ulang Tahun!</h1>
-        
-        <div class="cake-section">
-            <div class="cake">
-                <div class="candles">
-                    <div class="candle"><div class="flame"></div></div>
-                    <div class="candle"><div class="flame"></div></div>
-                    <div class="candle"><div class="flame"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="photo-section">
-            <div class="photo-layout">
-                <div class="photo-placeholder photo-1" onclick="document.getElementById('photoInput1').click()">
-                    <div class="photo-text">📷<br>Foto 1</div>
-                </div>
-                <div class="photo-placeholder photo-2" onclick="document.getElementById('photoInput2').click()">
-                    <div class="photo-text">📷<br>Foto 2</div>
-                </div>
-                <div class="photo-placeholder photo-3" onclick="document.getElementById('photoInput3').click()">
-                    <div class="photo-text">📷<br>Foto 3</div>
-                </div>
-                <div class="photo-placeholder photo-4" onclick="document.getElementById('photoInput4').click()">
-                    <div class="photo-text">📷<br>Foto 4</div>
-                </div>
-            </div>
-            
-            <input type="file" id="photoInput1" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput2" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput3" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput4" accept="image/*" style="display: none;">
-        </div>
-
-        <div class="default-message">
+    <section class="hero-section">
+        <h1 class="hero-title">🎂 Selamat Ulang Tahun! 🎂</h1>
+        <div class="hero-message">
             🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>
             🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>
             🥳 Selamat merayakan hari yang penuh berkah ini!
         </div>
+    </section>
 
-        <button class="celebrate-btn" onclick="celebrate()">🎉 Rayakan!</button>
-        <button class="celebrate-btn" onclick="resetCard()">🔄 Reset</button>
-    </div>
+    <section class="photo-section">
+        <div class="cake-decoration">
+            <div class="candles-decoration">
+                <div class="candle-decoration"><div class="flame-decoration"></div></div>
+                <div class="candle-decoration"><div class="flame-decoration"></div></div>
+                <div class="candle-decoration"><div class="flame-decoration"></div></div>
+            </div>
+        </div>
+
+        <div class="party-decorations">
+            <div class="party-hat"></div>
+            <div class="party-hat"></div>
+            <div class="party-hat"></div>
+            <div class="party-hat"></div>
+        </div>
+
+        <h2 class="section-title">📸 Kenangan Indah 📸</h2>
+
+        <div class="photo-grid">
+            <div class="photo-placeholder" onclick="document.getElementById('photoInput1').click()">
+                <div class="photo-text">📷<br>Klik untuk upload foto</div>
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('photoInput2').click()">
+                <div class="photo-text">📷<br>Klik untuk upload foto</div>
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('photoInput3').click()">
+                <div class="photo-text">📷<br>Klik untuk upload foto</div>
+            </div>
+            <div class="photo-placeholder" onclick="document.getElementById('photoInput4').click()">
+                <div class="photo-text">📷<br>Klik untuk upload foto</div>
+            </div>
+        </div>
+
+        <input type="file" id="photoInput1" accept="image/*" style="display: none;">
+        <input type="file" id="photoInput2" accept="image/*" style="display: none;">
+        <input type="file" id="photoInput3" accept="image/*" style="display: none;">
+        <input type="file" id="photoInput4" accept="image/*" style="display: none;">
+
+        <button class="celebrate-btn" onclick="celebrate()">🎉 Rayakan Bersama! 🎉</button>
+    </section>
 
     <script>
-        // Handle multiple photo uploads
+        // Handle photo uploads
         for (let i = 1; i <= 4; i++) {
             document.getElementById(`photoInput${i}`).addEventListener('change', function(e) {
                 const file = e.target.files[0];
@@ -410,7 +370,7 @@
             const confettiContainer = document.getElementById('confetti');
             const colors = ['#667eea', '#764ba2', '#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4'];
             
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti-piece';
@@ -424,24 +384,12 @@
                     setTimeout(() => {
                         confetti.remove();
                     }, 4000);
-                }, i * 50);
+                }, i * 30);
             }
         }
 
         function celebrate() {
             createConfetti();
-            
-            // Animate cake
-            const cake = document.querySelector('.cake');
-            cake.style.animation = 'gentle-bounce 0.5s ease-in-out 3';
-        }
-
-        function resetCard() {
-            // Reset all photo placeholders
-            for (let i = 1; i <= 4; i++) {
-                const placeholder = document.querySelector(`[onclick="document.getElementById('photoInput${i}').click()"]`);
-                placeholder.innerHTML = `<div class="photo-text">📷<br>Foto ${i}</div>`;
-            }
         }
 
         // Scroll balloons effect
@@ -449,7 +397,7 @@
             const container = document.getElementById('scrollBalloons');
             const colors = ['#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98FB98', '#F0E68C'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const balloon = document.createElement('div');
                 balloon.className = 'scroll-balloon';
                 balloon.style.setProperty('--balloon-color', colors[Math.floor(Math.random() * colors.length)]);
@@ -467,156 +415,16 @@
             const balloons = document.querySelectorAll('.scroll-balloon');
             
             balloons.forEach((balloon, index) => {
-                if (scrollPercent > index * 0.07) {
-                    balloon.style.opacity = '0.8';
-                } else {
-                    balloon.style.opacity = '0';
-                }
-            });
-        });
-
-        // Auto confetti on load
-        window.addEventListener('load', () => {
-            setTimeout(createConfetti, 1000);
-            createScrollBalloons();
-        });
-    </script>
-</body>
-</html>('photoInput0').click()">
-                <div class="photo-text">
-                    📷<br>Foto Utama
-                </div>
-            </div>
-            <input type="file" id="photoInput0" accept="image/*" style="display: none;">
-            
-            <div class="photo-grid">
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput1').click()">
-                    <div class="photo-text">📷<br>Foto 1</div>
-                </div>
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput2').click()">
-                    <div class="photo-text">📷<br>Foto 2</div>
-                </div>
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput3').click()">
-                    <div class="photo-text">📷<br>Foto 3</div>
-                </div>
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput4').click()">
-                    <div class="photo-text">📷<br>Foto 4</div>
-                </div>
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput5').click()">
-                    <div class="photo-text">📷<br>Foto 5</div>
-                </div>
-                <div class="photo-placeholder" onclick="document.getElementById('photoInput6').click()">
-                    <div class="photo-text">📷<br>Foto 6</div>
-                </div>
-            </div>
-            
-            <input type="file" id="photoInput1" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput2" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput3" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput4" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput5" accept="image/*" style="display: none;">
-            <input type="file" id="photoInput6" accept="image/*" style="display: none;">
-        </div>
-
-        <div class="default-message">
-            🌟 Semoga hari istimewa ini membawa kebahagiaan yang tak terbatas!<br>
-            🎁 Semoga semua impian dan harapanmu menjadi kenyataan!<br>
-            🥳 Selamat merayakan hari yang penuh berkah ini!
-        </div>
-
-        <button class="celebrate-btn" onclick="celebrate()">🎉 Rayakan!</button>
-        <button class="celebrate-btn" onclick="resetCard()">🔄 Reset</button>
-    </div>
-
-    <script>
-        // Handle multiple photo uploads
-        for (let i = 0; i <= 6; i++) {
-            document.getElementById(`photoInput${i}`).addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const placeholder = document.querySelector(`[onclick="document.getElementById('photoInput${i}').click()"]`);
-                        placeholder.innerHTML = `<img src="${e.target.result}" alt="Birthday Photo ${i}">`;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        function createConfetti() {
-            const confettiContainer = document.getElementById('confetti');
-            const colors = ['#667eea', '#764ba2', '#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4'];
-            
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti-piece';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDelay = Math.random() * 2 + 's';
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    
-                    confettiContainer.appendChild(confetti);
-                    
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 4000);
-                }, i * 50);
-            }
-        }
-
-        function celebrate() {
-            createConfetti();
-            
-            // Animate cake
-            const cake = document.querySelector('.cake');
-            cake.style.animation = 'gentle-bounce 0.5s ease-in-out 3';
-        }
-
-        function resetCard() {
-            // Reset all photo placeholders
-            const placeholders = document.querySelectorAll('.photo-placeholder');
-            placeholders[0].innerHTML = '<div class="photo-text">📷<br>Foto Utama</div>';
-            for (let i = 1; i < placeholders.length; i++) {
-                placeholders[i].innerHTML = `<div class="photo-text">📷<br>Foto ${i}</div>`;
-            }
-        }
-
-        // Scroll balloons effect
-        function createScrollBalloons() {
-            const container = document.getElementById('scrollBalloons');
-            const colors = ['#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98FB98', '#F0E68C'];
-            
-            for (let i = 0; i < 20; i++) {
-                const balloon = document.createElement('div');
-                balloon.className = 'scroll-balloon';
-                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                balloon.style.left = Math.random() * 100 + '%';
-                balloon.style.top = Math.random() * 100 + '%';
-                balloon.style.animationDelay = Math.random() * 2 + 's';
-                balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                container.appendChild(balloon);
-            }
-        }
-
-        // Show balloons on scroll
-        window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            const balloons = document.querySelectorAll('.scroll-balloon');
-            
-            balloons.forEach((balloon, index) => {
                 if (scrollPercent > index * 0.05) {
-                    balloon.style.opacity = '0.8';
+                    balloon.style.opacity = '0.7';
                 } else {
                     balloon.style.opacity = '0';
                 }
             });
         });
 
-        // Auto confetti on load
+        // Auto load
         window.addEventListener('load', () => {
-            setTimeout(createConfetti, 1000);
             createScrollBalloons();
         });
     </script>
