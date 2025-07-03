@@ -47,6 +47,7 @@
             opacity: 0;
             transition: opacity 0.5s ease;
             box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
+            will-change: opacity, transform; /* Memberi tahu browser untuk optimasi */
         }
 
         .scroll-balloon::before {
@@ -105,9 +106,6 @@
                 0 0 42px #a200ff,
                 0 0 82px #a200ff,
                 0 0 92px #a200ff;
-            animation: 
-                flicker-neon 2s ease-in-out infinite,
-                gentle-bounce 2.5s ease-in-out infinite;
         }
 
         @keyframes flicker-neon {
@@ -143,7 +141,6 @@
             border-radius: 20px;
             backdrop-filter: blur(15px);
             border: 2px solid rgba(255,215,0,0.8);
-            animation: glow-pulse 3s ease-in-out infinite;
             box-shadow: 0 8px 32px rgba(255,215,0,0.3);
         }
 
@@ -306,6 +303,7 @@
             overflow: hidden;
             margin: 0 auto;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            will-change: transform, box-shadow; /* Optimasi transisi hover */
         }
 
         .photo-placeholder:hover {
@@ -518,6 +516,7 @@
             animation: bounce-emoji 2s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.3s ease;
+            will-change: transform; /* Optimasi animasi */
         }
 
         .footer-emoji:nth-child(1) { animation-delay: 0s; }
@@ -553,34 +552,58 @@
         }
 
         @media (max-width: 768px) {
+            * {
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
             body {
-                background-attachment: scroll;
+                background: #ff6b6b;
+                background-attachment: fixed;
+                -webkit-overflow-scrolling: touch;
             }
             .hero-title { 
                 font-size: 2.5em;
-                will-change: transform;
+                animation: none;
+                text-shadow: 0 0 10px #ff4da6;
             }
             .hero-message { 
                 font-size: 1.2em; 
                 padding: 20px;
-                backdrop-filter: blur(5px);
+                backdrop-filter: none;
+                animation: none;
             }
             .photo-grid { grid-template-columns: 1fr; gap: 30px; }
             .photo-placeholder { 
                 width: 280px; 
                 height: 280px;
-                will-change: transform;
+                transition: none;
             }
-            .section-title { font-size: 2.2em; }
-            .footer-message h3 { font-size: 1.8em; }
+            .photo-placeholder:hover {
+                transform: none;
+            }
+            .section-title { 
+                font-size: 2.2em;
+                animation: none;
+            }
+            .footer-message h3 { 
+                font-size: 1.8em;
+                animation: none;
+            }
             .footer-message p { font-size: 1.1em; }
             .footer-decorations { gap: 20px; }
-            .footer-emoji { font-size: 2em; }
-            .scroll-balloons {
+            .footer-emoji { 
+                font-size: 2em;
+                animation: none;
+            }
+            .scroll-balloons,
+            .floating-hearts,
+            .party-decorations,
+            .cake-decoration {
                 display: none;
             }
-            .floating-hearts {
-                display: none;
+            .photo-section::before,
+            .footer::before {
+                animation: none;
             }
         }
     </style>
@@ -719,44 +742,51 @@
             }
         }
 
-        // Show balloons on scroll (throttled for mobile)
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 768) return; // Skip on mobile
-            
-            if (scrollTimeout) clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-                const balloons = document.querySelectorAll('.scroll-balloon');
-                
-                balloons.forEach((balloon, index) => {
-                    if (scrollPercent > index * 0.04) {
-                        balloon.style.opacity = '0.8';
-                    } else {
-                        balloon.style.opacity = '0';
-                    }
-                });
-            }, 16);
-        });
+        // Show balloons on scroll (Optimized with requestAnimationFrame)
+        let ticking = false;
 
-        // Auto floating hearts
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                const heartsContainer = document.getElementById('floatingHearts');
-                const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                
-                heartsContainer.appendChild(heart);
-                
-                setTimeout(() => {
-                    heart.remove();
-                }, 7000);
+        function handleScroll() {
+            if (window.innerWidth <= 768) return; // Skip on mobile
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const balloons = document.querySelectorAll('.scroll-balloon');
+            
+            balloons.forEach((balloon, index) => {
+                if (scrollPercent > index * 0.04) {
+                    balloon.style.opacity = '0.8';
+                } else {
+                    balloon.style.opacity = '0';
+                }
+            });
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
             }
-        }, 2000);
+        }, { passive: true }); // Use passive listener for better scroll performance
+
+        // Auto floating hearts (disabled on mobile)
+        if (window.innerWidth > 768) {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const heartsContainer = document.getElementById('floatingHearts');
+                    const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 7000);
+                }
+            }, 2000);
+        }
 
         // Auto load
         window.addEventListener('load', () => {
@@ -765,9 +795,11 @@
             }
         });
         
-        // Reduce animations on mobile for better performance
+        // Disable all animations on mobile
         if (window.innerWidth <= 768) {
-            document.documentElement.style.setProperty('--animation-duration', '0.5s');
+            const style = document.createElement('style');
+            style.textContent = '*, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }';
+            document.head.appendChild(style);
         }
     </script>
 </body>
