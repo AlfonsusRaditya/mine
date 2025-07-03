@@ -700,7 +700,7 @@
             const heartsContainer = document.getElementById('floatingHearts');
             const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
@@ -714,7 +714,7 @@
                     setTimeout(() => {
                         heart.remove();
                     }, 7000);
-                }, i * 400);
+                }, i * 100);
             }
         }
 
@@ -766,7 +766,7 @@
 
         // Auto floating hearts
         setInterval(() => {
-            if (Math.random() > 0.7) {
+            if (Math.random() > 0.3) {
                 const heartsContainer = document.getElementById('floatingHearts');
                 const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
                 const heart = document.createElement('div');
@@ -781,7 +781,7 @@
                     heart.remove();
                 }, 7000);
             }
-        }, 2000);
+        }, 800);
 
         // Auto load
         window.addEventListener('load', () => {
