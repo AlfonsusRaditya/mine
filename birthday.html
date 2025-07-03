@@ -17,6 +17,8 @@
             background-size: 400% 400%;
             animation: rainbow-bg 8s ease infinite;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         @keyframes rainbow-bg {
@@ -551,15 +553,35 @@
         }
 
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5em; }
-            .hero-message { font-size: 1.2em; padding: 20px; }
+            body {
+                background-attachment: scroll;
+            }
+            .hero-title { 
+                font-size: 2.5em;
+                will-change: transform;
+            }
+            .hero-message { 
+                font-size: 1.2em; 
+                padding: 20px;
+                backdrop-filter: blur(5px);
+            }
             .photo-grid { grid-template-columns: 1fr; gap: 30px; }
-            .photo-placeholder { width: 280px; height: 280px; }
+            .photo-placeholder { 
+                width: 280px; 
+                height: 280px;
+                will-change: transform;
+            }
             .section-title { font-size: 2.2em; }
             .footer-message h3 { font-size: 1.8em; }
             .footer-message p { font-size: 1.1em; }
             .footer-decorations { gap: 20px; }
             .footer-emoji { font-size: 2em; }
+            .scroll-balloons {
+                display: none;
+            }
+            .floating-hearts {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -697,18 +719,24 @@
             }
         }
 
-        // Show balloons on scroll
+        // Show balloons on scroll (throttled for mobile)
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            const balloons = document.querySelectorAll('.scroll-balloon');
+            if (window.innerWidth <= 768) return; // Skip on mobile
             
-            balloons.forEach((balloon, index) => {
-                if (scrollPercent > index * 0.04) {
-                    balloon.style.opacity = '0.8';
-                } else {
-                    balloon.style.opacity = '0';
-                }
-            });
+            if (scrollTimeout) clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+                const balloons = document.querySelectorAll('.scroll-balloon');
+                
+                balloons.forEach((balloon, index) => {
+                    if (scrollPercent > index * 0.04) {
+                        balloon.style.opacity = '0.8';
+                    } else {
+                        balloon.style.opacity = '0';
+                    }
+                });
+            }, 16);
         });
 
         // Auto floating hearts
@@ -732,8 +760,15 @@
 
         // Auto load
         window.addEventListener('load', () => {
-            createScrollBalloons();
+            if (window.innerWidth > 768) {
+                createScrollBalloons();
+            }
         });
+        
+        // Reduce animations on mobile for better performance
+        if (window.innerWidth <= 768) {
+            document.documentElement.style.setProperty('--animation-duration', '0.5s');
+        }
     </script>
 </body>
 </html>
