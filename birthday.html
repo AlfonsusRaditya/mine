@@ -595,8 +595,6 @@
                 font-size: 2em;
                 animation: none;
             }
-            .scroll-balloons,
-            .floating-hearts,
             .party-decorations,
             .cake-decoration {
                 display: none;
@@ -766,11 +764,28 @@
             }
         }, { passive: true }); // Use passive listener for better scroll performance
 
+        // Auto floating hearts
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const heartsContainer = document.getElementById('floatingHearts');
+                const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }
+        }, 2000);
+
         // Auto load
         window.addEventListener('load', () => {
-            if (window.innerWidth > 768) {
-                createScrollBalloons();
-            }
+            createScrollBalloons();
         });
         
     </script>
