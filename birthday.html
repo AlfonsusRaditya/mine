@@ -746,7 +746,6 @@
         let ticking = false;
 
         function handleScroll() {
-            if (window.innerWidth <= 768) return; // Skip on mobile
             const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             const balloons = document.querySelectorAll('.scroll-balloon');
             
