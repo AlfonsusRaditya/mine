@@ -37,6 +37,11 @@
             line-height: 1.6;
         }
 
+        body.waiting {
+            overflow: hidden;
+            height: 100vh;
+        }
+
         @keyframes rainbow-bg {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -48,13 +53,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 99999;
             overflow: hidden;
         }
 
@@ -64,6 +69,9 @@
             padding: 20px;
             width: 100%;
             max-width: 400px;
+            background: #ffffff;
+            position: relative;
+            z-index: 100000;
         }
 
         .waiting-message {
@@ -1034,6 +1042,7 @@
             if (isToday) {
                 // It's her birthday! Show main content
                 isBirthdayTime = true;
+                document.body.classList.remove('waiting');
                 document.getElementById('waitingRoom').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 
@@ -1051,6 +1060,7 @@
             } else {
                 // Not birthday yet, show waiting room
                 isBirthdayTime = false;
+                document.body.classList.add('waiting');
                 document.getElementById('waitingRoom').style.display = 'flex';
                 document.getElementById('mainContent').style.display = 'none';
                 updateWaitingCountdown();
