@@ -850,31 +850,7 @@
     </style>
 </head>
 <body>
-    <!-- Waiting Room Screen -->
-    <div class="waiting-room" id="waitingRoom">
-        <div class="waiting-content">
-            <div class="waiting-message">Please wait</div>
-            
-            <div class="waiting-countdown">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="waitDays">0</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="waitHours">0</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="waitMinutes">0</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="waitSeconds">0</span>
-                    <span class="countdown-label">Seconds</span>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Main Content (hidden until birthday) -->
     <div class="main-content" id="mainContent" style="display: none;">
@@ -1078,14 +1054,7 @@
                         createMegaCelebration();
                     }, 500);
                 }, 2000);
-            } else {
-                // Not birthday yet, show waiting room
-                isBirthdayTime = false;
-                document.body.classList.add('waiting');
-                document.getElementById('waitingRoom').style.display = 'flex';
-                document.getElementById('mainContent').style.display = 'none';
-                updateWaitingCountdown();
-            }
+            } 
         }
 
         // Update waiting room countdown
