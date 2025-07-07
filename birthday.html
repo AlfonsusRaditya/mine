@@ -1061,11 +1061,11 @@
         function updateWaitingCountdown() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            let birthday = new Date(currentYear, 6, 15); // July 15th
+            let birthday = new Date(currentYear, 6, 8); // July 15th
             
             // If birthday has passed this year, set it to next year
             if (now > birthday) {
-                birthday = new Date(currentYear + 1, 6, 15);
+                birthday = new Date(currentYear + 1, 6, 8);
             }
             
             const timeDiff = birthday - now;
