@@ -275,7 +275,7 @@
         }
 
         .hero-title {
-            font-size: 4.8em;
+            font-size: 4em;
             font-weight: 900;
             letter-spacing: 3px;
             margin-bottom: 30px;
@@ -983,7 +983,7 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="birthday-counter">
-                    <h3>🎉 Countdown ke Ulang Tahun Lisya 🎉</h3>
+                    <h3>🎉 Countdown ke Ultah Lisya 🎉</h3>
                     <div class="counter-display">
                         <div class="counter-item">
                             <span class="counter-number" id="days">0</span>
@@ -1294,8 +1294,8 @@
             const container = document.getElementById('floatingHearts');
             const hearts = ['💖', '💕', '💗', '💝', '💘', '💞'];
             
-            // Reduced from 15 to 8 hearts
-            for (let i = 0; i < 8; i++) {
+            // Increased to 20 hearts for more effect
+            for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.style.position = 'fixed';
                 heart.style.left = Math.random() * 100 + '%';
@@ -1309,7 +1309,7 @@
                 
                 container.appendChild(heart);
                 
-                setTimeout(() => heart.remove(), 5000); // Reduced cleanup time
+                setTimeout(() => heart.remove(), 100); // Reduced cleanup time
             }
         }
 
@@ -1339,12 +1339,12 @@
         }
 
         function startAutoEffects() {
-            // Reduced frequency from every 3 seconds to every 8 seconds
+            // More frequent floating hearts
             setInterval(() => {
-                if (Math.random() > 0.8) { // Reduced probability from 0.7 to 0.8
+                if (Math.random() > 0.3) { // Higher probability for more hearts
                     createFloatingHearts();
                 }
-            }, 8000); // Increased from 3000 to 8000ms
+            }, 3000); // Every 3 seconds for more hearts
             
             // Birthday counter
             setInterval(updateCounter, 1000);
