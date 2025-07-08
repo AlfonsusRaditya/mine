@@ -850,12 +850,179 @@
     </style>
 </head>
 <body>
-
+    <!-- Waiting Room Screen -->
+    <div class="waiting-room" id="waitingRoom">
+        <div class="waiting-content">
+            <div class="waiting-message">Please wait</div>
+            
+            <div class="waiting-countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="waitDays">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="waitHours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="waitMinutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="waitSeconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content (hidden until birthday) -->
     <div class="main-content" id="mainContent" style="display: none;">
-        <div class="loading-cake">🎂</div>
-        <div class="loading-text">Menyiapkan kejutan untuk Lisya...</div>
+        <!-- Loading Screen -->
+        <div class="loading-screen">
+            <div class="loading-cake">🎂</div>
+            <div class="loading-text">Menyiapkan kejutan untuk Lisya...</div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <!-- Interactive Cake -->
+            <div class="interactive-cake" id="interactiveCake">
+                
+            </div>
+            
+            <h1 class="hero-title">🎂 Selamat Ulang Tahun Lisyaaa! 🎂</h1>
+            <div class="hero-message">
+                🌟 Semoga yang disemogakan segera tersemogakan dan semoga lebih besar........ hatinya dan lebih baik ke gw
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section class="photo-section">
+            <div class="section-header">
+                <h2 class="section-title">📸 Momen Spesial Lisya 📸</h2>
+                <p class="section-subtitle">Klik foto untuk melihat lebih dekat!</p>
+            </div>
+            
+            <div class="photo-grid">
+                <div class="photo-card" data-photo="1751510180191.jpg">
+                    <div class="photo-placeholder">
+                        <img src="1751510180191.jpg" alt="Birthday Photo 1" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-card" data-photo="1751510180217.jpg">
+                    <div class="photo-placeholder">
+                        <img src="1751510180217.jpg" alt="Birthday Photo 2" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-card" data-photo="1751510180241.jpg">
+                    <div class="photo-placeholder">
+                        <img src="1751510180241.jpg" alt="Birthday Photo 3" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-card" data-photo="1872612874576.png">
+                    <div class="photo-placeholder">
+                        <img src="1872612874576.png" alt="Birthday Photo 4" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" data-photo="1751501231412.png">
+                    <div class="photo-placeholder">
+                        <img src="1751501231412.png" alt="Birthday Photo 5" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" data-photo="1751501807645.png">
+                    <div class="photo-placeholder">
+                        <img src="1751501807645.png" alt="Birthday Photo 6" loading="lazy">
+                        <div class="photo-overlay">
+                            <div class="photo-icon">🔍</div>
+                            <div class="photo-text">Lihat Detail</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photo Modal -->
+            <div class="photo-modal" id="photoModal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <img class="modal-image" id="modalImage" alt="Enlarged photo">
+                    <div class="modal-nav">
+                        <button class="nav-btn prev-btn" id="prevBtn">❮</button>
+                        <button class="nav-btn next-btn" id="nextBtn">❯</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="birthday-counter">
+                    <h3>🎉 Countdown ke Ulang Tahun Lisya 🎉</h3>
+                    <div class="counter-display">
+                        <div class="counter-item">
+                            <span class="counter-number" id="days">0</span>
+                            <span class="counter-label">Hari</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="hours">0</span>
+                            <span class="counter-label">Jam</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="minutes">0</span>
+                            <span class="counter-label">Menit</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="seconds">0</span>
+                            <span class="counter-label">Detik</span>
+                        </div>
+                    </div>
+                    <p class="counter-text" id="counterText">Menuju hari spesial Lisya!</p>
+                </div>
+                
+                <div class="footer-message">
+                    <p>Semoga bukan level up yang terakhir. Happy Birthday Mommy!</p>
+                </div>
+                
+                <div class="footer-decorations">
+                    <span class="footer-emoji" onclick="createCelebration()">🎂</span>
+                    <span class="footer-emoji" onclick="createCelebration()">🎁</span>
+                    <span class="footer-emoji" onclick="createCelebration()">🎉</span>
+                    <span class="footer-emoji" onclick="createCelebration()">🎈</span>
+                    <span class="footer-emoji" onclick="createCelebration()">🥳</span>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>Made by Adit</p>
+                    <p>© 2025 ARDY - Special Birthday Edition</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <!-- Music Control -->
@@ -874,148 +1041,11 @@
     <div id="confetti"></div>
     <div id="floatingHearts"></div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        
-        <h1 class="hero-title">🎂 Selamat Ulang Tahun Lisyaaa! 🎂</h1>
-        <div class="hero-message">
-            🌟 Semoga yang disemogakan segera tersemogakan dan semoga lebih besar........ hatinya dan lebih baik ke gw
-        </div>
-        
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="photo-section">
-        <div class="section-header">
-            <h2 class="section-title">📸 Momen Spesial Lisya 📸</h2>
-            <p class="section-subtitle">Klik foto untuk melihat lebih dekat!</p>
-        </div>
-        
-        <div class="photo-grid">
-            <div class="photo-card" data-photo="1751510180191.jpg">
-                <div class="photo-placeholder">
-                    <img src="1751510180191.jpg" alt="Birthday Photo 1" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="photo-card" data-photo="1751510180217.jpg">
-                <div class="photo-placeholder">
-                    <img src="1751510180217.jpg" alt="Birthday Photo 2" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="photo-card" data-photo="1751510180241.jpg">
-                <div class="photo-placeholder">
-                    <img src="1751510180241.jpg" alt="Birthday Photo 3" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="photo-card" data-photo="1872612874576.png">
-                <div class="photo-placeholder">
-                    <img src="1872612874576.png" alt="Birthday Photo 4" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photo-card" data-photo="1751501231412.png">
-                <div class="photo-placeholder">
-                    <img src="1751501231412.png" alt="Birthday Photo 5" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photo-card" data-photo="1751501807645.png">
-                <div class="photo-placeholder">
-                    <img src="1751501807645.png" alt="Birthday Photo 6" loading="lazy">
-                    <div class="photo-overlay">
-                        <div class="photo-icon">🔍</div>
-                        <div class="photo-text">Lihat Detail</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Photo Modal -->
-        <div class="photo-modal" id="photoModal">
-            <div class="modal-content">
-                <span class="modal-close">&times;</span>
-                <img class="modal-image" id="modalImage" alt="Enlarged photo">
-                <div class="modal-nav">
-                    <button class="nav-btn prev-btn" id="prevBtn">❮</button>
-                    <button class="nav-btn next-btn" id="nextBtn">❯</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="birthday-counter">
-                <h3>🎉 Countdown ke Ulang Tahun Lisya 🎉</h3>
-                <div class="counter-display">
-                    <div class="counter-item">
-                        <span class="counter-number" id="days">0</span>
-                        <span class="counter-label">Hari</span>
-                    </div>
-                    <div class="counter-item">
-                        <span class="counter-number" id="hours">0</span>
-                        <span class="counter-label">Jam</span>
-                    </div>
-                    <div class="counter-item">
-                        <span class="counter-number" id="minutes">0</span>
-                        <span class="counter-label">Menit</span>
-                    </div>
-                    <div class="counter-item">
-                        <span class="counter-number" id="seconds">0</span>
-                        <span class="counter-label">Detik</span>
-                    </div>
-                </div>
-                <p class="counter-text" id="counterText">Menuju hari spesial Lisya!</p>
-            </div>
-            
-            <div class="footer-message">
-                <p>Semoga bukan level up yang terakhir. Happy Birthday Mommy!</p>
-            </div>
-            
-            <div class="footer-decorations">
-                <span class="footer-emoji" onclick="createCelebration()">🎂</span>
-                <span class="footer-emoji" onclick="createCelebration()">🎁</span>
-                <span class="footer-emoji" onclick="createCelebration()">🎉</span>
-                <span class="footer-emoji" onclick="createCelebration()">🎈</span>
-                <span class="footer-emoji" onclick="createCelebration()">🥳</span>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>Made by Adit</p>
-                <p>© 2025 ARDY - Special Birthday Edition</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         // Enhanced JavaScript functionality
         let isPlaying = false;
         let currentPhotoIndex = 0;
-        const photos = ['1751510180191.jpg', '1751510180217.jpg', '1751510180241.jpg', '1872612874576.png', '1751510189789.png','1751501807645.png', '1751501231412.png' ];
+        const photos = ['1751510180191.jpg', '1751510180217.jpg', '1751510180241.jpg', '1872612874576.png', '1751501231412.png', '1751501807645.png'];
         const audio = document.getElementById('birthdayAudio');
         let isBirthdayTime = false;
         
@@ -1026,15 +1056,16 @@
         function checkBirthdayTime() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            let birthday = new Date(currentYear, 6, 15); // July 15th
+            let birthday = new Date(currentYear, 6, 15, 0, 0, 0); // July 15th at midnight
             
             // If birthday has passed this year, check next year
             if (now > birthday) {
-                birthday = new Date(currentYear + 1, 6, 15);
+                birthday = new Date(currentYear + 1, 6, 15, 0, 0, 0);
             }
             
-            // Check if it's currently July 15th
-            const isToday = now.getDate() === 15 && now.getMonth() === 6;
+            // Check if it's July 15th (her birthday)
+            const isToday = (now.getMonth() === 6 && now.getDate() === 15);
+            //const isToday = true; 
             
             if (isToday) {
                 // It's her birthday! Show main content
@@ -1045,59 +1076,29 @@
                 
                 // Start the birthday experience
                 setTimeout(() => {
-                    document.getElementById('loadingScreen').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loadingScreen').style.display = 'none';
-                        createScrollBalloons();
-                        startAutoEffects();
-                        // Auto-start celebration
-                        createMegaCelebration();
-                    }, 500);
+                    const loadingScreen = document.querySelector('.loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }
+                    createScrollBalloons();
+                    startAutoEffects();
+                    // Auto-start celebration
+                    createMegaCelebration();
                 }, 2000);
-            } 
-        }
-
-        // Update waiting room countdown
-        function updateWaitingCountdown() {
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            let birthday = new Date(currentYear, 6, 8); // July 15th
-            
-            // If birthday has passed this year, set it to next year
-            if (now > birthday) {
-                birthday = new Date(currentYear + 1, 6, 8);
-            }
-            
-            const timeDiff = birthday - now;
-            
-            if (timeDiff > 0) {
-                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                
-                document.getElementById('waitDays').textContent = String(days).padStart(2, '0');
-                document.getElementById('waitHours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('waitMinutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('waitSeconds').textContent = String(seconds).padStart(2, '0');
-                
-                // Check if countdown reached zero
-                if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
-                    // Birthday time! Refresh to show main content
-                    location.reload();
-                }
+            } else {
+                // Not birthday yet, show waiting room
+                isBirthdayTime = false;
+                document.body.classList.add('waiting');
+                document.getElementById('waitingRoom').style.display = 'flex';
+                document.getElementById('mainContent').style.display = 'none';
+                updateWaitingCountdown();
             }
         }
 
-        // Initialize on page load
-        window.addEventListener('load', () => {
-            checkBirthdayTime();
-            
-            // Update waiting countdown every second if in waiting mode
-            if (!isBirthdayTime) {
-                setInterval(updateWaitingCountdown, 1000);
-            }
-        });
+
 
         // Music control with actual audio
         document.getElementById('musicControl').addEventListener('click', () => {
@@ -1197,13 +1198,32 @@
         photoCards.forEach((card, index) => {
             card.addEventListener('click', () => {
                 modal.style.display = 'block';
-                modalImg.src = photos[index];
+                const photoSrc = card.getAttribute('data-photo');
+                modalImg.src = photoSrc;
                 currentPhotoIndex = index;
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
             });
         });
 
         document.querySelector('.modal-close').addEventListener('click', () => {
             modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        });
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         });
 
         document.getElementById('prevBtn').addEventListener('click', () => {
@@ -1332,46 +1352,21 @@
 
         function updateCounter() {
             const now = new Date();
-            const currentYear = now.getFullYear();
             
-            // Set birthday to July 15th of current year
-            let birthday = new Date(currentYear, 6, 15); // Month is 0-indexed, so 6 = July
+            // Since we're simulating it's her birthday, show current time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // If birthday has passed this year, set it to next year
-            if (now > birthday) {
-                birthday = new Date(currentYear + 1, 6, 15);
-            }
+            document.getElementById('days').textContent = '🎂';
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('counterText').textContent = '🎉 Selamat Ulang Tahun Lisya! 🎉';
             
-            const timeDiff = birthday - now;
-            
-            if (timeDiff > 0) {
-                // Countdown mode
-                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').textContent = String(days).padStart(2, '0');
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-                document.getElementById('counterText').textContent = 'Menuju hari spesial Lisya!';
-            } else {
-                // It's her birthday!
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const seconds = String(now.getSeconds()).padStart(2, '0');
-                
-                document.getElementById('days').textContent = '🎂';
-                document.getElementById('hours').textContent = hours;
-                document.getElementById('minutes').textContent = minutes;
-                document.getElementById('seconds').textContent = seconds;
-                document.getElementById('counterText').textContent = '🎉 Selamat Ulang Tahun Lisya! 🎉';
-                
-                // Trigger celebration on her birthday
-                if (Math.random() > 0.9) {
-                    createCelebration();
-                }
+            // Trigger celebration randomly
+            if (Math.random() > 0.95) {
+                createCelebration();
             }
         }
 
@@ -1418,6 +1413,35 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Update waiting countdown function
+        function updateWaitingCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let birthday = new Date(currentYear, 6, 15);
+            
+            if (now > birthday) {
+                birthday = new Date(currentYear + 1, 6, 15);
+            }
+            
+            const timeDiff = birthday - now;
+            
+            if (timeDiff > 0) {
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+                
+                document.getElementById('waitDays').textContent = String(days).padStart(2, '0');
+                document.getElementById('waitHours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('waitMinutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('waitSeconds').textContent = String(seconds).padStart(2, '0');
+            }
+        }
+
+        // Initialize the page
+        checkBirthdayTime();
+        setInterval(updateWaitingCountdown, 1000);
     </script>
 </body>
 </html>
